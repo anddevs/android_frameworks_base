@@ -122,7 +122,20 @@ public class DisplayMetrics {
      * density for a display in {@link #densityDpi}.
      */
     @Deprecated
-    public static int DENSITY_DEVICE = getDeviceDensity();
+    public static int DENSITY_DEVICE ;
+    
+    /** @hide */
+    public static int DENSITY_PREFERRED;
+
+    /** @hide */
+    public static int DENSITY_DEVICE_DEFAULT;
+
+    static {
+        DENSITY_DEVICE = SystemProperties.getInt("qemu.sf.lcd_density", SystemProperties
+            .getInt("ro.sf.lcd_density", DENSITY_DEFAULT));
+        DENSITY_DEVICE_DEFAULT = DENSITY_DEVICE;
+        DENSITY_PREFERRED = SystemProperties.getInt("persist.sys.lcd_density", DENSITY_DEVICE);
+    }
 
     /**
      * The absolute width of the display in pixels.
